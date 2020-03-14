@@ -885,6 +885,11 @@ bool PageList::Serialize(CacheFileStat& file, bool is_output)
       delete[] ptmp;
       return false;
     }
+    if (oneline.length() > 1 && oneline.at(0) == '0'){
+      S3FS_PRN_ERR("total starts with 0 but isn't 0");
+      delete[] ptmp;
+      return false;
+    }
     off_t total = s3fs_strtoofft(oneline.c_str());
 
     // load each part
